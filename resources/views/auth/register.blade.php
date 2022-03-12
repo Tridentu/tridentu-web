@@ -5,13 +5,34 @@
         <title>Create Account - Tridentu Web</title>
         <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css'); }}"/>
         <link rel="stylesheet" href="{{ asset('/css/adminlte.min.css'); }}"/>
-        <link rel="stylesheet" href="{{ asset('/css/fontawesome.min.css'); }}"/>
         <link rel="stylesheet" href="{{ asset('/css/icheck-bootstrap.min.css'); }}"/>
 
         <link rel="stylesheet" href="{{ asset('/css/app.css'); }}"/>
+        @livewireStyles
     </head>
     <body class="register-page">
+       
         <div class="register-box">
+        @if($errors->any())
+        <div style="position: absolute; top: 0; right: 0;">
+
+            @foreach ($errors->all() as $error)
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                    <div class="toast-header">
+                        <div class="rounded mr-2"></div>
+                        <strong class="mr-auto">Error Detected</strong>
+                        <small>now</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        <p>{{ $error }}</p>
+                    </div>
+                </div>
+            @endforeach
+</div>
+        @endif
             <div class="card card-outline">
                 <div class="card-header text-center">
                     <a class="h1" href="{{ route('welcome'); }}">
@@ -20,7 +41,7 @@
                 </div>
                 <div class="card-body">
                     <p class="register-box-msg">Create a new user</p>
-                    <form action="{{ url('/register') }}" method="post" class="row mb-3">
+                    <form action="{{ url('/tridentu-web/register') }}" method="post" class="row mb-3">
                         <div class="input-group mb-3">
                             <input type="text" name="name" placeholder="Display Name" class="form-control">
                             <div class="input-group-append">
@@ -32,7 +53,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="text" name="username" placeholder="Username" class="form-control">
+                            <input type="text" name="email" placeholder="Username" class="form-control">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <i class="fas fa-user">
@@ -70,7 +91,7 @@
                     </form>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <a href="{{ url('/login'); }}" class="btn btn-danger btn-block">Logon to Tridentu Web</a>
+                                <a href="{{ url('/tridentu-web/login'); }}" class="btn btn-danger btn-block">Logon to Tridentu Web</a>
                             <div>
                         </div>
                 </div>
@@ -79,5 +100,11 @@
         <script src="{{ asset('/js/jquery.slim.min.js'); }}"></script>
         <script src="{{ asset('/js/bootstrap.bundle.min.js'); }}"></script>
         <script src="{{ asset('/js/adminlte.min.js'); }}"></script>
+        <script src="{{ asset('/js/fontawesome.min.js'); }}"></script>
+        
+        @livewireScripts
+        <script>
+            $(".toast").toast('show');
+        </script>
     </body>
 </html>

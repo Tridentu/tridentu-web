@@ -36,6 +36,12 @@ return [
             'throw' => false,
         ],
 
+        'tenantapp' => [
+            'driver' => 'local',
+            'root' => base_path() . '/../sites',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -71,6 +77,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('sites') => base_path() . '\..\sites\\',
     ],
 
 ];

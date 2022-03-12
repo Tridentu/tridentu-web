@@ -1,6 +1,6 @@
  
-* {
-  font-family: Iosevka;
+:not(.fas) {
+  font-family: Iosevka, "Segoe UI";
 }
 
 html, body {

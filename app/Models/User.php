@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Scout\Searchable;
+use Cmgmyr\Messenger\Traits\Messagable;
+use Cmgmyr\Messenger\Models\Message;
+use App\Models\TenantApp;
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -41,4 +47,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    use Searchable;
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+ 
+        $array['email'] = null;
+ 
+        return $array;
+    }
+
+    use Messagable;
+
+    public function allUnreadMessages() {
+       return Message::unreadForUser($this->getKey());
+    }
+
+    public function apps(){
+        return $this->hasMany(TenantApp::class, 'data.owner_id', 'id');
+    }
 }

@@ -74,7 +74,7 @@ return [
     |
     */
 
-    'prefix' => '',
+    'prefix' => 'tridentu-web',
 
     'domain' => null,
 
